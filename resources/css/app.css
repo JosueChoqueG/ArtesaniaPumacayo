@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================
+   TEMA ANDINO - VARIABLES Y UTILIDADES
+   ======================================== */
+@layer base {
+  :root {
+    --andino-terracota: #8B4513;
+    --andino-ocre: #D4A017;
+    --andino-cuero: #3E2723;
+    --andino-montana: #2E5A3A;
+    --andino-lana: #FDF8F3;
+    --andino-bronce: #B8860B;
+    --andino-soft: #F5F1E6;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--andino-lana);
+    color: #1F2937;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-andino {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    color: var(--andino-cuero);
+  }
+}
+
+/* ========================================
+   COMPONENTES REUTILIZABLES
+   ======================================== */
+@layer components {
+  .btn-andino {
+    @apply bg-[var(--andino-terracota)] text-white font-medium px-4 py-2 rounded transition-colors duration-200 hover:bg-[#733A10];
+  }
+
+  .btn-andino-outline {
+    @apply border-2 border-[var(--andino-terracota)] text-[var(--andino-terracota)] font-medium px-4 py-2 rounded transition-colors duration-200 hover:bg-[var(--andino-terracota)] hover:text-white;
+  }
+
+  .card-andino {
+    @apply bg-white border border-[#E5D5C0] border-l-4 border-l-[var(--andino-ocre)] rounded-lg shadow-sm hover:shadow-md transition-shadow;
+  }
+
+  .input-andino {
+    @apply w-full p-2 border border-stone-300 rounded focus:ring-2 focus:ring-[var(--andino-ocre)] focus:border-[var(--andino-terracota)] outline-none transition;
+  }
+
+  .text-andino { @apply text-[var(--andino-cuero)]; }
+  .bg-andino-soft { @apply bg-[var(--andino-soft)]; }
+  
+  .pattern-andino {
+    background-image: radial-gradient(var(--andino-ocre) 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.05;
+    pointer-events: none;
+  }
+}
+
+/* ========================================
+   UTILIDADES PERSONALIZADAS
+   ======================================== */
+@layer utilities {
+  .scroll-smooth { scroll-behavior: smooth; }
+}
