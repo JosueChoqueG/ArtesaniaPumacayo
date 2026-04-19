@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\Route;
 // ─────────────────────────────────────
 // RUTA DE INICIO
 // ─────────────────────────────────────
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // ─────────────────────────────────────
 // CARRITO DE COMPRAS (Público)
