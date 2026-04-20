@@ -2,21 +2,105 @@
 
 @section('content')
 
-    {{-- 🐎 HERO SECTION --}}
-    <section class="relative h-[500px] md:h-[600px] flex items-center justify-center bg-cover bg-center" 
-             style="background-image: url('https://images.unsplash.com/photo-1534430480872-3498386e7856?q=80&w=1470&auto=format&fit=crop');">
-        <div class="absolute inset-0 bg-black/60"></div> {{-- Oscurece la imagen para leer texto --}}
-        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-            <h1 class="font-andino text-4xl md:text-6xl text-amber-100 mb-4 drop-shadow-lg">
-                Tradición Andina en tus Manos
-            </h1>
-            <p class="text-gray-200 text-lg md:text-xl mb-8 font-light">
-                Sombreros, chalinas y talabartería hecha a mano por artesanos expertos. <br>
-                Lleva contigo un pedazo de historia.
-            </p>
-            <a href="{{ route('catalog') }}" class="btn-andino text-lg px-8 py-3 rounded shadow-lg hover:scale-105 transition inline-block">
-                Ver Catálogo 
-            </a>
+    {{-- 🐎 HERO SECTION CON SLIDER AUTOMÁTICO --}}
+    <section x-data="{ 
+            activeSlide: 1, 
+            totalSlides: 3,
+            init() { 
+                setInterval(() => { this.activeSlide = this.activeSlide === this.totalSlides ? 1 : this.activeSlide + 1 }, 6000) 
+            } 
+        }" 
+        class="relative h-[550px] md:h-[650px] overflow-hidden">
+        
+        <div class="grid grid-cols-1 grid-rows-1 h-full w-full">
+            
+            <!-- Slide 1: General -->
+            <div x-show="activeSlide === 1" 
+                 x-transition:enter="transition ease-out duration-1000"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition ease-in duration-1000"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
+                 class="col-start-1 row-start-1 relative flex items-center justify-center bg-cover bg-center"
+                 style="background-image: url('{{ asset('images/hero_welcome.png') }}');">
+                <div class="absolute inset-0 bg-black/50"></div>
+                <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+                    <h1 class="font-andino text-4xl md:text-7xl text-amber-100 mb-4 drop-shadow-2xl">
+                        Tradición Andina en tus Manos
+                    </h1>
+                    <p class="text-gray-200 text-lg md:text-2xl mb-8 font-light">
+                        Sombreros, chalinas y talabartería hecha a mano por artesanos expertos.
+                    </p>
+                    <a href="{{ route('catalog') }}" class="btn-andino text-lg px-10 py-4 rounded shadow-xl hover:scale-105 transition-all duration-300 inline-block">
+                        Ver Catálogo 
+                    </a>
+                </div>
+            </div>
+
+            <!-- Slide 2: Textiles -->
+            <div x-show="activeSlide === 2" 
+                 x-cloak
+                 x-transition:enter="transition ease-out duration-1000"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition ease-in duration-1000"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
+                 class="col-start-1 row-start-1 relative flex items-center justify-center bg-cover bg-center"
+                 style="background-image: url('{{ asset('images/hero_textiles.png') }}');">
+                <div class="absolute inset-0 bg-black/50"></div>
+                <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+                    <h1 class="font-andino text-4xl md:text-7xl text-amber-100 mb-4 drop-shadow-2xl">
+                        Tejidos Ancestrales
+                    </h1>
+                    <p class="text-gray-200 text-lg md:text-2xl mb-8 font-light">
+                        Esencia en lana de Alpaca, tejidos con alma y tradición milenaria.
+                    </p>
+                    <a href="{{ route('catalog') }}" class="btn-andino text-lg px-10 py-4 rounded shadow-xl hover:scale-105 transition-all duration-300 inline-block">
+                        Explorar Textiles
+                    </a>
+                </div>
+            </div>
+
+            <!-- Slide 3: Cerámica -->
+            <div x-show="activeSlide === 3" 
+                 x-cloak
+                 x-transition:enter="transition ease-out duration-1000"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition ease-in duration-1000"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
+                 class="col-start-1 row-start-1 relative flex items-center justify-center bg-cover bg-center"
+                 style="background-image: url('{{ asset('images/hero_ceramica.png') }}');">
+                <div class="absolute inset-0 bg-black/50"></div>
+                <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+                    <h1 class="font-andino text-4xl md:text-7xl text-amber-100 mb-4 drop-shadow-2xl">
+                        Arte en Barro
+                    </h1>
+                    <p class="text-gray-200 text-lg md:text-2xl mb-8 font-light">
+                        Cerámica auténtica moldeada por manos que cuentan historias ancestrales.
+                    </p>
+                    <a href="{{ route('catalog') }}" class="btn-andino text-lg px-10 py-4 rounded shadow-xl hover:scale-105 transition-all duration-300 inline-block">
+                        Ver Cerámica
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Puntos de Navegación -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-30">
+            <button @click="activeSlide = 1" 
+                    :class="activeSlide === 1 ? 'bg-amber-200 w-12' : 'bg-white opacity-40 w-3'" 
+                    class="h-3 rounded-full transition-all duration-700 focus:outline-none"></button>
+            <button @click="activeSlide = 2" 
+                    :class="activeSlide === 2 ? 'bg-amber-200 w-12' : 'bg-white opacity-40 w-3'" 
+                    class="h-3 rounded-full transition-all duration-700 focus:outline-none"></button>
+            <button @click="activeSlide = 3" 
+                    :class="activeSlide === 3 ? 'bg-amber-200 w-12' : 'bg-white opacity-40 w-3'" 
+                    class="h-3 rounded-full transition-all duration-700 focus:outline-none"></button>
         </div>
     </section>
 
